@@ -6,37 +6,65 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      name: "Jefferson",
-      idade: "20",
-      company: "Facebook",
-      string: "I work at",
+      monsters: [
+        {
+          name: "Blaster ",
+          id: '1',
+        },
+  
+        { 
+          name: "Slasher ",
+          id: '2',
+        },
+  
+        { 
+          name: "Smasher " ,
+          id: '3',
+        },
+       {
+        name: 'Bomber ',
+        id: '4',
+       },
+        { 
+          name: "Boomer ",
+          id: '5',
+        },
+        {
+          name: 'Volimer ',
+          id: '6',
+        }
+      ],
+      type: [
+        {
+          element: 'fire',
+        },
+        {
+          element: 'water',
+        },
+        {
+          element: 'earth',
+        },
+
+      ]
+      
     };
   }
 
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Hi , {this.state.name}, you have {this.state.idade} years old.{" "}
-            {this.state.string} {this.state.company}
-          </p>
-          <button className="btn"
-            onClick={() => {
-              this.setState({
-                name: "Julius",
-                idade: "66",
-                company: "Google",
-                string: "I work at",
-              });
-            }}
-          >
-            Change name
-          </button>
-        </header>
-      </div>
-    );
+    return <div className="App">
+      {
+        // this.state.type.map((tipo) => {
+        //   return <div>
+        //     {tipo.element}
+        //   </div>
+        // })}
+        // {
+        this.state.monsters.map((monster) => 
+        {
+          return <h1 key={monster.id}>{monster.name}</h1>
+        })
+      }
+    </div>;
   }
 }
 
