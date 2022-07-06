@@ -6,65 +6,47 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      monsters: [
-        {
-          name: "Blaster ",
-          id: '1',
-        },
-  
-        { 
-          name: "Slasher ",
-          id: '2',
-        },
-  
-        { 
-          name: "Smasher " ,
-          id: '3',
-        },
-       {
-        name: 'Bomber ',
-        id: '4',
-       },
-        { 
-          name: "Boomer ",
-          id: '5',
-        },
-        {
-          name: 'Volimer ',
-          id: '6',
-        }
-      ],
-      type: [
-        {
-          element: 'fire',
-        },
-        {
-          element: 'water',
-        },
-        {
-          element: 'earth',
-        },
-
-      ]
-      
+      monsters: [],
+      searchField: '',
     };
   }
 
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((users) =>
+        this.setState(
+          () => {
+            return {
+              monsters: users,
+            };
+          }
+        )
+      );
+  }
+
   render() {
-    return <div className="App">
+
+    const monsterFilter = this.state.monsters.filter((monster) => {
+      return monster.name.toLocaleLowerCase().includes(this.state.searchField);
+      
+    });
+    return (
+      <div className="App">
+      <input className="search-box" type='search' placeholder='search monsters' onChange={(event) => 
       {
-        // this.state.type.map((tipo) => {
-        //   return <div>
-        //     {tipo.element}
-        //   </div>
-        // })}
-        // {
-        this.state.monsters.map((monster) => 
-        {
-          return <h1 key={monster.id}>{monster.name}</h1>
-        })
+        const searchField = event.target.value.toLocaleLowerCase();
+        this.setState(() => {
+          return { searchField }});
       }
-    </div>;
+      }/> 
+        {
+          monsterFilter.map((monster) => {
+            return <h1 key={monster.id}>{monster.name}</h1>;
+          })
+        }
+      </div>
+    );
   }
 }
 
